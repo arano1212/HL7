@@ -1,0 +1,26 @@
+Message Type: ORU^R01, Control ID: 20, Sending Application: P
+Patient ID: , Patient Name: , DOB: 
+Order Number: 72, Test Name: ^, Test Date: 20240524112803
+Pass: , Name: UREA, Results: 38.011350
+Message Type: ORU^R01, Control ID: 20, Sending Application: P
+Patient ID: , Patient Name: , DOB: 
+Order Number: 72, Test Name: ^, Test Date: 20240524112803
+Pass: , Name: UREA, Results: 38.011350
+Message Type: ORU^R01, Control ID: 20, Sending Application: P
+Patient ID: , Patient Name: , DOB: 
+Order Number: 72, Test Name: ^, Test Date: 20240524112803
+Pass: , Name: UREA, Results: 38.011350
+Pass: , Name: Glucose (GOD-POD Method), Results: 157.885850
+Pass: , Name: Triglycerides, Results: 92.704386
+Pass: , Name: Total Cholesterol, Results: 154.231338
+Pass: , Name: Creatinine (Sarcosine Oxidase Method), Results: 0.454214
+Pass: , Name: Uric Acid, Results: 4.014565
+Message Type: ORU^R01, Control ID: 20, Sending Application: P
+Patient ID: , Patient Name: , DOB: 
+Order Number: 72, Test Name: ^, Test Date: 20240524112803
+Pass: , Name: UREA, Results: 38.011350
+Pass: , Name: Glucose (GOD-POD Method), Results: 157.885850
+Pass: , Name: Triglycerides, Results: 92.704386
+Pass: , Name: Total Cholesterol, Results: 154.231338
+Pass: , Name: Creatinine (Sarcosine Oxidase Method), Results: 0.454214
+Pass: , Name: Uric Acid, Results: 4.014565
