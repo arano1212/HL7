@@ -1,20 +1,22 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import fs from 'fs'
+// import fs from 'fs'
 import dotenv from 'dotenv'
-import { processHL7Message } from './src/processHL7.js'
+// import { processHL7Message } from './src/processHL7.js'
+import config from './src/config/config.js'
+import HL7Router from './src/routes/hl7Routes.js'
 
 dotenv.config()
 
 const hL7 = express()
-const port = process.env.PORT || 8000
-const filePath = process.env.FILE_PATH
+const port = config.port || 8000
 
 hL7.use(bodyParser.text({
   type: 'text/plain'
 }))
 
-hL7.post('/hl7', async (req, res) => {
+/* hL7.post('/hl7', async (req, res) =>
+   {
   try {
     const hl7Message = req.body
     const processedData = processHL7Message(hl7Message)
@@ -34,7 +36,9 @@ hL7.post('/hl7', async (req, res) => {
     console.error('Error al procesar el mensaje HL7:', error)
     res.status(500).send('Error al procesar el mensaje HL7.')
   }
-})
+}) */
+
+hL7.use('/', HL7Router)
 
 hL7.listen(port, () => {
   console.log(`Servidor ejecutándose en http://${process.env.HOST}:${port}`)
