@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { processHL7Message } from '../processHL7.js'
 import config from '../config/config.js'
+import { io } from '../../server.js'
 
 const HL7Post = async (req, res) => {
   try {
@@ -17,6 +18,10 @@ const HL7Post = async (req, res) => {
     }
 
     fs.appendFileSync(config.filePath, processedData + '\n')
+
+    io.emit('newMessage', { message: processedData })
+    console.log('Nuevo mensaje HL7 recibido y emitido:', processedData)
+
     res.status(200).send('Mensaje HL7 procesado y guardado.')
   } catch (error) {
     console.error('Error al procesar el mensaje HL7:', error)
