@@ -16,15 +16,12 @@ const port = config.port || 8000
 const server = http.createServer(hL7)
 const io = new SocketIOServer(server, {
   cors: {
-    origin: 'http://localhost:8000',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST']
 
   }
 })
-hL7.use(cors({
-  origin: 'http://localhost:8000',
-  methods: ['GET', 'POST'],
-}))
+hL7.use(cors())
 
 hL7.set('socketio', io)
 
@@ -62,9 +59,14 @@ io.on('connection', (socket) => {
 
   io.emit('newConnection', io.engine.clientsCount)
 
+  console.log(`Usuarios conectados: ${io.engine.clientsCount}`)
+
   socket.on('disconnect', () => {
     console.log('Cliente desconectado:', socket.id)
+
     io.emit('newConnection', io.engine.clientsCount)
+
+    console.log(`Usuarios conectados: ${io.engine.clientsCount}`)
   })
 
   socket.on('hl7Message', (message) => {
