@@ -5,35 +5,49 @@ export function processHL7Message (hl7Message) {
     hl7Validator(hl7Message)
 
     const lines = hl7Message.split('\n')
-    let processedData = ''
+    const result = {
+      MSH: {},
+      PID: {},
+      OBR: {},
+      OBX: []
+    }
 
     lines.forEach(line => {
       const segments = line.split('|')
 
-      if (segments[0] === 'OBX') {
-        const pass = segments[3] || ''
-        const name = segments[4] || ''
-        const results = segments[5] || ''
-        processedData += `Pass: ${pass}, Name: ${name}, Results: ${results}\n`
-      } else if (segments[0] === 'OBR') {
-        const orderNumber = segments[3] || ''
-        const testName = segments[4] || ''
-        const testDate = segments[7] || ''
-        processedData += `Order Number: ${orderNumber}, Test Name: ${testName}, Test Date: ${testDate}\n`
-      } else if (segments[0] === 'PID') {
-        const patientId = segments[3] || ''
-        const patientName = segments[5] || ''
-        const patientDob = segments[7] || ''
-        processedData += `Patient ID: ${patientId}, Patient Name: ${patientName}, DOB: ${patientDob}\n`
-      } else if (segments[0] === 'MSH') {
-        const messageType = segments[8] || ''
-        const messageControlId = segments[9] || ''
-        const sendingApplication = segments[10] || ''
-        processedData += `Message Type: ${messageType}, Control ID: ${messageControlId}, Sending Application: ${sendingApplication}\n`
+      switch (segments[0]) {
+        case 'MSH':
+          result.MSH = {
+            messageType: segments[8],
+            controlId: segments[9],
+            sendingApplication: segments[10]
+          }
+          break
+        case 'PID':
+          result.PID = {
+            patientId: segments[3],
+            patientName: segments[5],
+            dob: segments[7]
+          }
+          break
+        case 'OBR':
+          result.OBR = {
+            orderNumber: segments[3],
+            testName: segments[4],
+            testDate: segments[7]
+          }
+          break
+        case 'OBX':
+          result.OBX.push({
+            pass: segments[3],
+            name: segments[4],
+            results: segments[5]
+          })
+          break
       }
     })
 
-    return processedData.trim()
+    return result
   } catch (error) {
     console.error('Error al procesar el mensaje HL7:', error.message)
     throw error
